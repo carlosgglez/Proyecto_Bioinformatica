@@ -1,0 +1,64 @@
+---
+title: "Explorando Proyectos con ReCount3"
+author: "García Carlos"
+date: "2025-02-01"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 6
+---
+
+## ReCount3
+
+[**ReCount3**](https://rna.recount.bio/) es un recurso en línea que consta de recuentos de genes, exones y uniones exón-exón de secuencias de ARN, así como archivos bigWig de cobertura para 8679 y 10 088 estudios diferentes para humanos y ratones respectivamente. Es la tercera generación del proyecto [**ReCount**](https://bowtie-bio.sourceforge.net/recount/) y parte de **recount.bio**.
+
+## Buscando Proyecto de Interes
+
+Lo primero que hay que hacer es cargar la libreria de Recoun3.
+
+```{r, message=FALSE, warning=FALSE}
+library(recount3)
+
+# Bloque para asegurarnos que se cargo de manera correcta recount3
+
+if ("recount3" %in% loadedNamespaces()) {
+  print("Se cargó de manera exitosa recount3")
+} else {
+  print("No se pudo cargar recount3")
+}
+```
+
+```{r, warning=FALSE}
+# Obtener la lista de proyectos disponibles en recount3
+human_projects <- available_projects()
+
+# Mostrar los valores únicos de la columna "project_home" para ver de dónde provienen los datos
+unique(human_projects$project_home)
+
+# Filtrar solo los proyectos que pertenecen a TCGA (The Cancer Genome Atlas)
+human_projects[human_projects$project_home == "data_sources/tcga", ]
+
+# Seleccionar la información del proyecto específico "LAML" (Leucemia Mieloide Aguda)
+# y asegurarse de que proviene de la fuente de datos correcta
+project_info <- subset(
+    human_projects,
+    project == "LAML" & project_type == "data_sources"
+)
+
+# Crear un objeto RangedSummarizedExperiment (RSE) con los datos de LAML
+rse_LAML <- create_rse(project_info)
+
+# Calcular los conteos de lectura (read counts) y almacenarlos en el assay "counts" 
+# dentro del objeto RSE
+assay(rse_LAML, "counts") <- compute_read_counts(rse_LAML)
+
+# Mostrar el objeto RSE con los datos de LAML
+rse_LAML
+
+```
+
+Se seleccionó el proyecto [**LAML** (Leucemia Mieloide Aguda)](https://portal.gdc.cancer.gov/projects/TCGA-LAML) del prestigioso consorcio [**TCGA** (The Cancer Genome Atlas)](https://www.cancer.gov/ccg/research/genome-sequencing/tcga), una de las iniciativas más importantes en oncogenómica. Este proyecto proporciona un recurso invaluable para el análisis del perfil molecular de la leucemia mieloide aguda, permitiendo una mejor comprensión de su biología y posibles estrategias terapéuticas.
+
+```{r, echo=FALSE}
+shell.exec("Explorando_proyectosRecount.pdf")
+```
