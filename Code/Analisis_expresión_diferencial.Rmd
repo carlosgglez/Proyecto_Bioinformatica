@@ -158,6 +158,16 @@ EnhancedVolcano(res,
                 pCutoff = 0.05)
 ```
 
+### MA plot de las muestras
+
+Un **MA plot** permite visualizar la expresión diferencial de los genes al comparar la **media de expresión normalizada** (Eje X) con el **log2FoldChange** (Eje Y). Este gráfico ayuda a identificar genes diferencialmente expresados al resaltar aquellos con mayor variabilidad y cambios significativos en su expresión.
+
+```{r}
+
+plotMA(res, ylim = c(-5, 5), cex = 1)
+
+```
+
 ### Heatmap de genes de interés
 
 Se genera un **heatmap** para visualizar la expresión de los genes de interés en las distintas muestras.
@@ -198,7 +208,7 @@ Se visualiza la expresión del gen **SPN** por estado vital en un **boxplot**.
 SPN_expr <- as.vector(assay(vsd)["SPN", ])
 
 df_boxplot <- data.frame(
-  vital_status = colData(rse_LAML2)$tcga.gdc_cases.diagnoses.vital_status,
+  vital_status = colData(vsd)$tcga.gdc_cases.diagnoses.vital_status,
   expression = SPN_expr
 )
 
