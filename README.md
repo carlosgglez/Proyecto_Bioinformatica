@@ -2,6 +2,11 @@
 
 Este repositorio contiene el análisis de expresión diferencial utilizando datos de pacientes con **Leucemia Mieloide Aguda (LAML)** del proyecto TCGA. Se emplean herramientas de **bioinformática** para la selección, limpieza y visualización de datos de expresión génica.
 
+## Autor
+Carlos García González
+
+Email: <carlosgg@lcg.unam.mx>
+
 ## Contenido
 
 - [Introducción](#introducción)
@@ -211,3 +216,11 @@ Para ejecutar el análisis, simplemente ejecute el script analisis_expresion.R e
 
 ## Agradecimientos
 Agradecemos al proyecto TCGA por proporcionar los datos utilizados en este análisis y a los desarrolladores de las librerías de R utilizadas en este estudio.
+
+## Licencia
+
+Licencia MIT
+
+## Contactenos
+
+Si tiene alguna duda o sugerencia sobre este programa, favor de contactarnos por el ciguiente correo: <carlosgg@gmail.com.mx>
